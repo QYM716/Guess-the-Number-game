@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>网页版猜数字游戏</title>
+    <style>
+        body{
+            background:#1f2937;
+            color:white;
+            font-family:Arial;
+            max-width:450px;
+            margin:80px auto;
+            padding:20px;
+        }
+        input{
+            padding:8px;
+            width:220px;
+            font-size:16px;
+        }
+        button{
+            padding:8px 16px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:4px;
+            font-size:16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🎮 猜数字游戏（网页版）</h2>
+    <p>我想好了1‑100之间的数字，请来猜！</p>
+    <div>
+        <input type="number" id="numInput" placeholder="输入数字">
+        <button onclick="guess()">提交猜测</button>
+    </div>
+    <p id="msg"></p>
+    <p>猜测次数：<span id="count">0</span></p>
+    <button onclick="resetGame()">重新开始</button>
+
+<script>
+let answer = Math.floor(Math.random()*100)+1;
+let count = 0;
+
+function guess(){
+    const val = parseInt(document.getElementById("numInput").value);
+    const msgDom = document.getElementById("msg");
+    const cntDom = document.getElementById("count");
+    if(isNaN(val)){
+        msgDom.innerText = "请输入有效的数字！";
+        return;
+    }
+    count++;
+    cntDom.innerText = count;
+    if(val > answer){
+        msgDom.innerText = "猜大了！";
+    }else if(val < answer){
+        msgDom.innerText = "猜小了！";
+    }else{
+        msgDom.innerText = `🎉恭喜猜对！答案是${answer}`;
+    }
+}
+
+function resetGame(){
+    answer = Math.floor(Math.random()*100)+1;
+    count = 0;
+    document.getElementById("count").innerText=0;
+    document.getElementById("msg").innerText="";
+    document.getElementById("numInput").value="";
+}
+</script>
+</body>
+</html>
